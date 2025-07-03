@@ -1,0 +1,45 @@
+<div class="mainContainer" style="min-height: 90vh">
+  <div *ngIf="tasks.length===0 && !showForm" class="empty-message">
+    <h3>There are no task currently!</h3>
+    <span>Let's add some tasks!</span>
+  </div>
+
+  <div class="container" *ngFor="let task of tasks" [ngStyle]="{'background': task.color}">
+    <div class="title">
+      <h1>{{ task.title }}</h1>
+      <div class="delButton" *ngIf="enableDeleteMode">
+        <button type="button" (click)="deleteTask(task.id)">X</button>
+      </div>
+    </div>
+    <div class="dividerTop" role="separator" aria-label="Divider"></div>
+    <div class="description">
+      <p>{{task.description}}</p>
+    </div>
+    <div class="dividerBottom" role="separator" aria-label="Divider"></div>
+    <div class="extraInfo">
+      <div class="id">
+        <span>ID: {{task.id}}</span>
+      </div>
+      <div class="date">
+        <span>Added at:{{task.createdAt | date: 'dd/MM/yyyy h:mm a'}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" *ngIf="showForm">
+    <form (ngSubmit)="submitTask()" #taskForm="ngForm">
+      <div class="formTitle">
+      <input class="titleInput" type="text" name="title" [(ngModel)]="newTask.title" placeholder="Task Title" required>
+      </div>
+      <div class="formDividerTop" role="separator" aria-label="Divider"></div>
+      <div class="formDescription">
+      <textarea class="descriptionInput" name="description" [(ngModel)]="newTask.description" placeholder="Task description" required></textarea>
+      </div>
+      <div class="formDividerBottom" role="separator" aria-label="Divider"></div>
+      <div class="buttonContainer">
+        <button class="addButton" type="submit">Submit</button>
+        <button class="cancelButton" type="button" (click)="hideForm()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

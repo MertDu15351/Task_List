@@ -1,0 +1,9 @@
+<header>
+  <button *ngIf="enableDelete" type="button" class="add" (click)="taskBlockComponent.deleteAllTasks();enableDelete=false;taskBlockComponent.disableDelete()">Delete All</button>
+  <button *ngIf="!enableDelete" type="button" class="add" (click)="taskBlockComponent.showAddForm()">Add New Task</button>
+  <input type="search" (input)="taskBlockComponent.searchTask(searchBar.value)" #searchBar placeholder="search for a title" >
+  <button *ngIf="!enableDelete" type="button" class="delete" (click)="taskBlockComponent.enableDelete();enableDelete=true">Delete Task</button>
+  <button *ngIf="enableDelete" type="button" class="delete" (click)="taskBlockComponent.disableDelete();enableDelete=false">Cancel Delete</button>
+</header>
+<task-block (onDeleteComplete)="enableDelete = false" ></task-block>
+<footer></footer>
